@@ -14,7 +14,7 @@ A modern, highly-scalable, hybrid test automation framework built using **Python
 *   🏗️ **Page Object Model (POM):** Clean separation of test cases and page-specific elements/actions, located in the [pages/](file:///d:/Python%20Projects/PlaywrightWebAutomation/pages) directory.
 *   🌐 **E2E Web UI Testing:** Comprehensive test coverage of user flows, including authentication, cart actions, sorting verification, and hover effects on Swag Labs ([SauceDemo](https://www.saucedemo.com/)) and Amazon.
 *   ⚡ **REST API Automation:** Integration tests covering `GET`, `POST`, and `PUT` methods against mock REST endpoints ([JSONPlaceholder](https://jsonplaceholder.typicode.com/)).
-*   📊 **Aesthetic HTML Reporting:** Automatic, self-contained HTML test report generation via `pytest-html`, complete with custom stylesheet configuration ([assets/style.css](file:///d:/Python%20Projects/PlaywrightWebAutomation/assets/style.css)).
+*   📊 **Aesthetic HTML & Allure Reporting:** Automatic, self-contained HTML test report generation via `pytest-html` and rich interactive reporting via `Allure Report` (with automated screenshot attachments on failures).
 *   🔧 **Post-Execution Hooks:** Auto-opens generated test reports in your default web browser immediately after test completion via [conftest.py](file:///d:/Python%20Projects/PlaywrightWebAutomation/conftest.py).
 *   ⚙️ **Robust Configuration:** Global properties for browser viewports, headless mode, slow-mo, timeouts, and automated screenshots/videos on failures managed under [config.py](file:///d:/Python%20Projects/PlaywrightWebAutomation/config.py).
 *   🎯 **Custom Selector Engines:** Custom configured to prioritize `data-test` automation attributes.
@@ -136,6 +136,18 @@ Generate a complete, self-contained HTML report manually using:
 ```bash
 pytest -v --html=reports/report.html --self-contained-html
 ```
+
+### Generate Allure Reports
+1. **Run tests to generate Allure raw results**:
+   Test execution will automatically write raw results to `allure-results/` (configured in `pytest.ini`):
+   ```bash
+   pytest
+   ```
+2. **Serve and view the Allure report**:
+   Build the HTML report dynamically and open it in your default web browser:
+   ```bash
+   npx allure-commandline serve allure-results
+   ```
 
 ---
 
