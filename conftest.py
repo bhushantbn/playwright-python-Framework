@@ -31,5 +31,5 @@ def pytest_runtest_makereport(item, call):
 
 def pytest_sessionfinish(session, exitstatus):
     report_path = os.path.abspath("reports/report.html")
-    if os.path.exists(report_path):
+    if os.path.exists(report_path) and not os.environ.get("CI"):
         webbrowser.open(f"file://{report_path}")
