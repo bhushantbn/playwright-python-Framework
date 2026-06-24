@@ -10,6 +10,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout repository
@@ -34,7 +36,7 @@ jobs:
       env:
         CI: "true"
       run: |
-        pytest
+        pytest --alluredir=allure-results
 
     - name: Upload Pytest HTML Report
       if: always()
@@ -52,6 +54,17 @@ jobs:
         ref: gh-pages
         path: gh-pages
 
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      if: always()
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Ensure Allure results directory exists
+      if: always()
+      run: mkdir -p allure-results
+
     - name: Build Allure Report
       uses: simple-elf/allure-report-action@master
       if: always()
@@ -60,6 +73,7 @@ jobs:
         allure_results: allure-results
         allure_report: allure-report
         allure_history: allure-history
+        gh_pages: gh-pages
 
     - name: Upload Allure Report Artifact
       if: always()
